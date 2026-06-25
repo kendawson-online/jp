@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Jesus Prayer: Settings</title>
+    <link rel="icon" href="orthodox-cross.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="jp.css">
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light');
+        }
+    </script>
+    <script>
+        const theme = localStorage.getItem('theme') || 'dark';
+        window.themeIcons = {
+            sun: theme === 'light'
+                ? 'sun-fill.svg'
+                : 'sun.svg',
+
+            moon: theme === 'dark'
+                ? 'moon-fill.svg'
+                : 'moon.svg',
+
+            toggle: theme === 'light'
+                ? 'toggle-off.svg'
+                : 'toggle-on.svg'
+        };
+    </script>
+</head>
+<body>
+
+    <div class="cornerBtnWrapper" id="cornerBtnWrapper">
+        <span class="close-btn" id="closeSettings">×</span>
+    </div>
+
+    <div class="settings-container">
+
+        <h1 style="margin-bottom: 30px;">App Settings:</h1>
+
+        <div class="themeControls" id="themeControls">
+            <label>Theme Style:</label> 
+            <img id="sunIcon" title="Light" alt="Light" width="30">
+            <img id="toggleIcon" title="Toggle Switch" alt="Toggle" width="52" height="52">
+            <img id="moonIcon" title="Dark" alt="Dark" width="28">
+            <script>
+                sunIcon.src = window.themeIcons.sun;
+                moonIcon.src = window.themeIcons.moon;
+                toggleIcon.src = window.themeIcons.toggle;
+            </script>
+        </div>
+
+        <div class="setting-group">
+            <label>Glow Color (Dark Mode)</label>
+            <input type="color" id="glowDark" value="#8b0000">
+        </div>
+
+        <div class="setting-group">
+            <label>Glow Color (Light Mode)</label>
+            <input type="color" id="glowLight" value="#8b0000">
+        </div>
+
+        <div class="setting-group">
+            <label>
+                <input type="checkbox" id="noRotation"> Disable Automatic Rotation on Page Load
+            </label>
+        </div>
+
+        <div class="setting-group">
+            <label>
+                <input type="checkbox" id="noShadow"> Disable Glow/Shadow
+            </label>
+        </div>
+
+        <div class="setting-group">
+            <label for="speedSliderSettings">Rotation Speed:</label>
+            <input type="range" id="speedSliderSettings" class="speed-slider" min="10" max="80" value="40" step="1">
+            <div style="font-size: smaller; text-align:center; margin-top:20px;">
+                It will take <span id="speedValueSettings">40</span> seconds to complete 1 rotation
+            </div>
+        </div>
+    </div>
+
+    <script src="jp.js"></script>
+</body>
+</html>

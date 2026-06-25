@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Jesus Prayer</title>
+    <meta name="description" content="Orthodox Christian Jesus Prayer: Lord Jesus Christ Son of God have mercy on me a sinner">
+    <link rel="icon" href="orthodox-cross.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="jp.css">
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light');
+        }
+    </script>
+</head>
+<body>
+
+    <div class="cornerBtnWrapper">
+        <img id="gearIcon" src="gear.svg" class="gear-icon" title="Settings" alt="Settings">
+    </div>
+
+    <div id="displayArea">
+        <div class="spinner paused" id="spinner" 
+             title="Lord Jesus Christ Son of God have mercy on me a sinner"></div>
+    </div>
+
+    <div class="btn-container">
+        <button id="btnJesus">Christ Pantocrator</button>
+        <button id="btnLord">The Lord's Prayer</button>
+        <button id="btnMary">Theotokos</button>
+        <button id="btnHail">Hail Mary</button>
+        <button id="btnCross">Orthodox Cross</button>
+        <button id="btnJesusPrayer">The Jesus Prayer</button>
+    </div>
+
+    <footer class="footer-text">
+        <a href="https://www.youtube.com/watch?v=pPpyVWbEzEA" target="_blank" class="footer-link">Mysteries of the Jesus Prayer</a> | <a href="https://www.goarch.org/introduction" target="_blank" class="footer-link">About Orthodox Christianity</a> | <a href="https://www.33knots.com/" target="_blank" class="footer-link">Get a Prayer Rope</a>
+    </footer>
+
+    <script src="jp.js"></script>
+</body>
+</html>
