@@ -130,7 +130,7 @@ function initializeDefaults() {
 
 function initMainPage() {
     initializeDefaults();
-    let displayArea = document.getElementById('displayArea');
+    displayArea = document.getElementById('displayArea');
     applySettings();
     const gearIcon = document.getElementById('gearIcon');
     if (gearIcon) gearIcon.addEventListener('click', () => window.location.href = 'settings.html');
