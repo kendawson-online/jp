@@ -1,27 +1,27 @@
 // -------------------------------------------------------
-// jp.js - Main JavaScript for The Jesus Prayer app
+// jp.js - JavaScript for The Jesus Prayer app
 // -------------------------------------------------------
+
+const appVersion = '0.0.2-beta';
+const lastUpdated = 'Jun. 25, 2026';
 
 let isSpinning = false;
 let currentDuration = parseInt(localStorage.getItem('rotationSpeed') || '40');
 let displayArea = null;
 
-// ====================== CORE FUNCTIONS ======================
 function updateIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
     const toggleIcon = document.getElementById('toggleIcon');
     if (!sunIcon || !moonIcon || !toggleIcon) return;
     if (isLight) {
-
-        sunIcon.src = 'sun-fill.svg';
-        moonIcon.src = 'moon.svg';
-        toggleIcon.src = 'toggle-off.svg';
+        sunIcon.src = 'assets/img/app-icons/sun-fill.svg';
+        moonIcon.src = 'assets/img/app-icons/moon.svg';
+        toggleIcon.src = 'assets/img/app-icons/toggle-off.svg';
     } else {
-
-        sunIcon.src = 'sun.svg';
-        moonIcon.src = 'moon-fill.svg';
-        toggleIcon.src = 'toggle-on.svg';
+        sunIcon.src = 'assets/img/app-icons/sun.svg';
+        moonIcon.src = 'assets/img/app-icons/moon-fill.svg';
+        toggleIcon.src = 'assets/img/app-icons/toggle-on.svg';
     }
 }
 
@@ -30,26 +30,21 @@ function applyGlowColor() {
     const savedGlowDark = localStorage.getItem('glowDark') || '#8b0000';
     const savedGlowLight = localStorage.getItem('glowLight') || '#8b0000';
     const noShadow = localStorage.getItem('noShadow') === 'true';
-
     let color = isLight ? savedGlowLight : savedGlowDark;
     if (noShadow) color = 'transparent';
-
     document.documentElement.style.setProperty('--glow-color', color);
 }
 
 function applySettings() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
-
     if (savedTheme === 'light') {
         document.documentElement.classList.add('light');
     } else {
         document.documentElement.classList.remove('light');
     }
-
     applyGlowColor();
 }
 
-// ====================== DISPLAY ======================
 function showImage(imageUrl, title = "") {
     isSpinning = false;
     if (displayArea) {
@@ -84,12 +79,10 @@ function resetToSpinner() {
     }
 }
 
-// ====================== SPINNER ======================
 function spinnerClickHandler() {
     isSpinning = !isSpinning;
     const currentSpinner = document.getElementById('spinner');
     if (!currentSpinner) return;
-
     if (isSpinning) {
         currentSpinner.classList.remove('paused');
         currentSpinner.style.animation = `spin ${currentDuration}s linear infinite`;
@@ -99,7 +92,6 @@ function spinnerClickHandler() {
     }
 }
 
-// ====================== SPEED ======================
 function updateSpeed(duration) {
     currentDuration = duration;
     ['speedValue', 'speedValueSettings'].forEach(id => {
@@ -136,43 +128,35 @@ function initializeDefaults() {
     }
 }
 
-// ====================== MAIN PAGE ======================
 function initMainPage() {
-
     initializeDefaults();
-
-    displayArea = document.getElementById('displayArea');
+    let displayArea = document.getElementById('displayArea');
     applySettings();
-
-    // Gear
     const gearIcon = document.getElementById('gearIcon');
     if (gearIcon) gearIcon.addEventListener('click', () => window.location.href = 'settings.html');
-
-    // Image Buttons
-    document.getElementById('btnJesus')?.addEventListener('click', () => showImage('jesus.jpg', 'Christ Pantocrator'));
-    document.getElementById('btnMary')?.addEventListener('click', () => showImage('mary.jpg', 'Theotokos'));
-    document.getElementById('btnLord')?.addEventListener('click', () => showImage('lords-prayer.jpg', "The Lord's Prayer"));
-    document.getElementById('btnHail')?.addEventListener('click', () => showImage('hail-mary.jpg', 'Hail Mary'));
-    document.getElementById('btnCross')?.addEventListener('click', () => showImage('cross.png', 'Orthodox Cross'));
+    document.getElementById('btnJesus')?.addEventListener('click', () => showImage('assets/img/jesus.jpg', 'Christ Pantocrator'));
+    document.getElementById('btnMary')?.addEventListener('click', () => showImage('assets/img/mary.jpg', 'Theotokos'));
+    document.getElementById('btnLord')?.addEventListener('click', () => showImage('assets/img/lords-prayer.jpg', "The Lord's Prayer"));
+    document.getElementById('btnHail')?.addEventListener('click', () => showImage('assets/img/hail-mary.jpg', 'Hail Mary'));
+    document.getElementById('btnCross')?.addEventListener('click', () => showImage('assets/img/cross.png', 'Orthodox Cross'));
     document.getElementById('btnJesusPrayer')?.addEventListener('click', resetToSpinner);
-
-    // Spinner click
     const spinner = document.getElementById('spinner');
     if (spinner) {
         spinner.addEventListener('click', spinnerClickHandler);
         applyRotationPreference();
     }
+    let appVersionElement = document.getElementById('appVersion');
+    let appLastUpdatedElement = document.getElementById('lastUpdated');
+    if (appVersionElement && appLastUpdatedElement) {
+        appVersionElement.textContent = appVersion;
+        appLastUpdatedElement.textContent = lastUpdated;
+    }
 }
 
-// ====================== SETTINGS PAGE ======================
 function initSettingsPage() {
-
     initializeDefaults();
-
     displayArea = null;
     applySettings();
-
-    // Theme Toggle
     const themeControls = document.getElementById('themeControls');
     if (themeControls) {
         const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -188,24 +172,18 @@ function initSettingsPage() {
             applyGlowColor();
         });
     }    
-
     const closeBtn = document.getElementById('closeSettings');
     if (closeBtn) closeBtn.addEventListener('click', () => window.location.href = 'index.html');
-
-    // Speed Slider
     const speedSlider = document.getElementById('speedSliderSettings');
     const speedValueEl = document.getElementById('speedValueSettings');
     if (speedSlider) {
         speedSlider.value = currentDuration;
         if (speedValueEl) speedValueEl.textContent = currentDuration;
-
         speedSlider.addEventListener('input', (e) => {
             updateSpeed(parseInt(e.target.value));
             localStorage.setItem('rotationSpeed', e.target.value);
         });
     }
-
-    // Glow Colors
     const glowDark = document.getElementById('glowDark');
     const glowLight = document.getElementById('glowLight');
     if (glowDark) {
@@ -222,8 +200,6 @@ function initSettingsPage() {
             applyGlowColor();
         });
     }
-
-    // Checkboxes
     const noRotation = document.getElementById('noRotation');
     const noShadow = document.getElementById('noShadow');
     if (noRotation) {
@@ -245,11 +221,4 @@ function initSettingsPage() {
             applyGlowColor();
         });
     }
-}
-
-// ====================== INITIALIZE ======================
-if (document.getElementById('btnJesusPrayer')) {
-    initMainPage();
-} else if (document.getElementById('closeSettings')) {
-    initSettingsPage();
 }

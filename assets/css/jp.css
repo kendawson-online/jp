@@ -2,12 +2,14 @@
     --bg-color: #1a1a1a;
     --glow-color: rgba(139, 0, 0, 0.45);
     --spinner-border-color: white;
+    --footer-text: rgba(255, 255, 255, 0.432);
 }
 
 html.light {
     --bg-color: #f0f0f0;
     --glow-color: rgba(139, 0, 0, 0.25);
     --spinner-border-color: black;
+    --footer-text: #333333;
 }
 
 body {
@@ -29,15 +31,14 @@ body {
     height: min(550px, 90vw);
     aspect-ratio: 1 / 1;
     border: 8px dotted var(--spinner-border-color);
-    background-image: url('jesusprayer.png');
+    background-image: url('../img/jesusprayer.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
-    /* animation: spin 40s linear infinite; */
-    box-shadow: 0 0 50px var(--glow-color), 
-                0 0 100px var(--glow-color), 
-                0 0 160px var(--glow-color);
+    box-shadow: 0 0 20px var(--glow-color), 
+                0 0 50px var(--glow-color), 
+                0 0 80px var(--glow-color);
     cursor: pointer;
     transition: filter 0.3s ease;
     margin-top: 25px;
@@ -100,7 +101,6 @@ html.light .theme-controls {
     width: 32px;
     height: 32px;
 }
-
 .gear-icon:hover {
     transform: scale(1.25);
 }
@@ -157,7 +157,7 @@ html.light .speed-slider {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    border: 2px solid white;
+    border: 2px solid var(--spinner-border-color);
 }
 
 .btn-container button:hover {
@@ -222,16 +222,28 @@ html.light .settings-container {
     margin-top: 200px;
     margin-bottom: 20px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.432);
-    font-size: smaller;
+    color: var(--footer-text);
+    font-size: 1em;
 }
 
 .footer-link {
-    color: rgba(255, 255, 255, 0.432);
+    color: var(--footer-text);
     text-decoration: none;
 }
 .footer-link:hover {
     text-decoration: underline;
+}
+
+.vert-line {
+ margin: 0 10px 0 10px;
+}
+
+.version-text {
+    text-align: center;
+    font-family: monospace;
+    font-size: small;
+    margin: 50px 0;
+    color: var(--footer-text);
 }
 
 #displayArea {

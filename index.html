@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Jesus Prayer</title>
     <meta name="description" content="Orthodox Christian Jesus Prayer: Lord Jesus Christ Son of God have mercy on me a sinner">
-    <link rel="icon" href="orthodox-cross.svg" sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href="jp.css">
+    <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/jp.css">
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light');
@@ -16,7 +16,7 @@
 <body>
 
     <div class="cornerBtnWrapper">
-        <img id="gearIcon" src="gear.svg" class="gear-icon" title="Settings" alt="Settings">
+        <img id="gearIcon" src="assets/img/app-icons/gear.svg" class="gear-icon" title="Settings" alt="Settings">
     </div>
 
     <div id="displayArea">
@@ -34,9 +34,23 @@
     </div>
 
     <footer class="footer-text">
-        <a href="https://www.youtube.com/watch?v=pPpyVWbEzEA" target="_blank" class="footer-link">Mysteries of the Jesus Prayer</a> | <a href="https://www.goarch.org/introduction" target="_blank" class="footer-link">About Orthodox Christianity</a> | <a href="https://www.33knots.com/" target="_blank" class="footer-link">Get a Prayer Rope</a>
+        <a href="https://www.youtube.com/watch?v=pPpyVWbEzEA" target="_blank" class="footer-link">Mysteries of the Jesus Prayer</a>
+        <span class="vert-line">&vert;</span>
+        <a href="https://www.goarch.org/introduction" target="_blank" class="footer-link">About Orthodox Christianity</a>
+        <span class="vert-line">&vert;</span>
+        <a href="https://www.33knots.com/" target="_blank" class="footer-link">Get a Prayer Rope</a>
     </footer>
 
-    <script src="jp.js"></script>
+    <div class="version-text">
+        Version: <span id="appVersion">0.0.0</span> &mdash; Last updated: <span id="lastUpdated">00/00/0000</span>
+    </div>
+
+    <script src="assets/js/jp.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            initMainPage();
+        });
+    </script>
+
 </body>
 </html>

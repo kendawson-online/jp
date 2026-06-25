@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Jesus Prayer: Settings</title>
-    <link rel="icon" href="orthodox-cross.svg" sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href="jp.css">
+    <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/jp.css">
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light');
         }
-    </script>
-    <script>
         const theme = localStorage.getItem('theme') || 'dark';
         window.themeIcons = {
             sun: theme === 'light'
-                ? 'sun-fill.svg'
-                : 'sun.svg',
+                ? 'assets/img/app-icons/sun-fill.svg'
+                : 'assets/img/app-icons/sun.svg',
 
             moon: theme === 'dark'
-                ? 'moon-fill.svg'
-                : 'moon.svg',
+                ? 'assets/img/app-icons/moon-fill.svg'
+                : 'assets/img/app-icons/moon.svg',
 
             toggle: theme === 'light'
-                ? 'toggle-off.svg'
-                : 'toggle-on.svg'
+                ? 'assets/img/app-icons/toggle-off.svg'
+                : 'assets/img/app-icons/toggle-on.svg'
         };
     </script>
 </head>
@@ -81,6 +79,12 @@
         </div>
     </div>
 
-    <script src="jp.js"></script>
+    <script src="assets/js/jp.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            initSettingsPage();
+        });
+    </script>
+
 </body>
 </html>
