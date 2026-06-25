@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../orthodox-cross.svg" sizes="any" type="image/svg+xml">
+    <title>Knot Test</title>
+    <style>
+        body {
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .wrapper {
+            text-align: center;
+        }
+        circle {
+            stroke: #000;
+            stroke-width: 2;
+            cursor: pointer;
+        }
+        .completed {
+            fill: gold;
+        }
+        #rope {
+            width: min(800px, 90vw);
+            height: auto;
+        }
+    </style>
+</head> 
+<body>
+    
+    <div class="wrapper">
+
+        <h1>Knot Test</h1>
+        <svg
+            id="rope"
+            width="800"
+            height="800"
+            viewBox="0 0 800 800">
+        </svg>
+
+    </div>
+
+    <script>
+        const svg = document.getElementById('rope');
+        const centerX = 400;
+        const centerY = 400;
+        const radius = 280;
+        const knots = 36;
+        const ropePath = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+        );
+        ropePath.setAttribute("cx", centerX);
+        ropePath.setAttribute("cy", centerY);
+        ropePath.setAttribute("r", radius);
+        ropePath.setAttribute("fill", "none");
+        ropePath.setAttribute("stroke", "#666");
+        ropePath.setAttribute("stroke-width", "6");
+        svg.appendChild(ropePath);
+        for (let i = 0; i < knots; i++) {
+            const angle = (i / knots) * Math.PI * 2 - Math.PI / 2;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            const circle = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
+            );
+            circle.setAttribute("id", `knot-${i + 1}`);
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 18);
+            circle.addEventListener('click', () => {
+                circle.classList.toggle('completed');
+            });
+            svg.appendChild(circle);
+        }
+    </script>
+
+</body>
+</html>
