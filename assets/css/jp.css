@@ -241,7 +241,7 @@ html.light .settings-container {
 .version-text {
     text-align: center;
     font-family: monospace;
-    font-size: small;
+    font-size: smaller;
     margin: 50px 0;
     color: var(--footer-text);
 }
