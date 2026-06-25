@@ -31,7 +31,7 @@ body {
     height: min(550px, 90vw);
     aspect-ratio: 1 / 1;
     border: 8px dotted var(--spinner-border-color);
-    background-image: url('../img/jesusprayer.png');
+    background-image: url('assets/img/jesusprayer.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

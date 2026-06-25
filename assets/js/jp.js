@@ -134,11 +134,11 @@ function initMainPage() {
     applySettings();
     const gearIcon = document.getElementById('gearIcon');
     if (gearIcon) gearIcon.addEventListener('click', () => window.location.href = 'settings.html');
-    document.getElementById('btnJesus')?.addEventListener('click', () => showImage('/assets/img/jesus.jpg', 'Christ Pantocrator'));
-    document.getElementById('btnMary')?.addEventListener('click', () => showImage('/assets/img/mary.jpg', 'Theotokos'));
-    document.getElementById('btnLord')?.addEventListener('click', () => showImage('/assets/img/lords-prayer.jpg', "The Lord's Prayer"));
-    document.getElementById('btnHail')?.addEventListener('click', () => showImage('/assets/img/hail-mary.jpg', 'Hail Mary'));
-    document.getElementById('btnCross')?.addEventListener('click', () => showImage('/assets/img/cross.png', 'Orthodox Cross'));
+    document.getElementById('btnJesus')?.addEventListener('click', () => showImage('assets/img/jesus.jpg', 'Christ Pantocrator'));
+    document.getElementById('btnMary')?.addEventListener('click', () => showImage('assets/img/mary.jpg', 'Theotokos'));
+    document.getElementById('btnLord')?.addEventListener('click', () => showImage('assets/img/lords-prayer.jpg', "The Lord's Prayer"));
+    document.getElementById('btnHail')?.addEventListener('click', () => showImage('assets/img/hail-mary.jpg', 'Hail Mary'));
+    document.getElementById('btnCross')?.addEventListener('click', () => showImage('assets/img/cross.png', 'Orthodox Cross'));
     document.getElementById('btnJesusPrayer')?.addEventListener('click', resetToSpinner);
     const spinner = document.getElementById('spinner');
     if (spinner) {
