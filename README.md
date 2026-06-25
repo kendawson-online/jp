@@ -6,6 +6,12 @@ A simple devotional web application centered around the ancient Christian practi
 
 The goal of this project is to provide a quiet, distraction-free space for prayer and contemplation using imagery, gentle animation, and customizable settings.
 
+## Intended Audience
+
+This application is primarily designed for Orthodox Christians who are already familiar with the Jesus Prayer and wish to incorporate it into their daily prayer practice.
+
+Educational resources are provided for visitors who would like to learn more about the history and theology of the Jesus Prayer, and additional educational content may be added in future releases.
+
 ## Live Demo
 
 🌐 https://jesusprayer.net
