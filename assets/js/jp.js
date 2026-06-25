@@ -46,6 +46,7 @@ function applySettings() {
 }
 
 function showImage(imageUrl, title = "") {
+    if (!displayArea) return;
     isSpinning = false;
     if (displayArea) {
         displayArea.innerHTML = `
