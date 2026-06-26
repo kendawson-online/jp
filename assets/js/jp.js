@@ -45,6 +45,25 @@ function updateSetting(key, value) {
     }
 }
 
+// this function will be depecated in future versions 
+function migrateOldSettings() {
+    const oldKeys = ['theme', 'glowDark', 'glowLight', 'noRotation', 'noShadow', 'rotationSpeed'];
+    let hasOldKeys = false;
+    oldKeys.forEach(key => {
+        if (localStorage.getItem(key) !== null) {
+            hasOldKeys = true;
+        }
+    });
+    if (hasOldKeys) {
+        console.log('🧹 Migrating old settings — clearing localStorage');
+        localStorage.clear();
+        // Optional: small delay then reload so user sees the change
+        setTimeout(() => {
+            window.location.reload();
+        }, 300);
+    }
+}
+
 function updateIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
@@ -148,6 +167,7 @@ function initializeDefaults() {
 }
 
 function initMainPage() {
+    migrateOldSettings();
     initializeDefaults();
     displayArea = document.getElementById('displayArea');
     applySettings();
@@ -176,6 +196,7 @@ function initMainPage() {
 }
 
 function initSettingsPage() {
+    migrateOldSettings();
     initializeDefaults();
     displayArea = null;
     applySettings();
