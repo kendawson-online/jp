@@ -64,6 +64,14 @@ function migrateOldSettings() {
     }
 }
 
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('✅ SW registered'))
+            .catch(err => console.log('❌ SW registration failed', err));
+    }
+}
+
 function updateIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
@@ -190,9 +198,7 @@ function initMainPage() {
         appVersionElement.textContent = appVersion;
         appLastUpdatedElement.textContent = lastUpdated;
     }
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-    }    
+    registerServiceWorker();
 }
 
 function initSettingsPage() {
@@ -254,7 +260,5 @@ function initSettingsPage() {
         noShadow.checked = settings.noShadow;
         noShadow.addEventListener('change', (e) => updateSetting('noShadow', e.target.checked));
     }
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-    }
+    registerServiceWorker();
 }
