@@ -2,12 +2,48 @@
 // jp.js - JavaScript for The Jesus Prayer app
 // -------------------------------------------------------
 
-const appVersion = '0.0.2-beta';
-const lastUpdated = 'Jun. 25, 2026';
+const appVersion = '0.0.3-beta';
+const lastUpdated = 'Jun. 26, 2026';
 
 let isSpinning = false;
-let currentDuration = parseInt(localStorage.getItem('rotationSpeed') || '40');
+let currentDuration = parseInt(localStorage.getItem('rotationSpeed') || '30');
 let displayArea = null;
+
+const DEFAULT_SETTINGS = {
+    theme: 'dark',
+    glowDark: 'rgba(139, 0, 0, 0.451)',
+    glowLight: '#000000',
+    noRotation: true,
+    noShadow: true,
+    rotationSpeed: 30
+};
+
+let settings = { ...DEFAULT_SETTINGS };
+
+function loadSettings() {
+    const saved = localStorage.getItem('appSettings');
+    if (saved) {
+        settings = { ...DEFAULT_SETTINGS, ...JSON.parse(saved) };
+    }
+}
+
+function saveSettings() {
+    localStorage.setItem('appSettings', JSON.stringify(settings));
+}
+
+function updateSetting(key, value) {
+    settings[key] = value;
+    saveSettings();
+    if (key === 'theme') {
+        applySettings();
+    }
+    if (['glowDark', 'glowLight', 'noShadow'].includes(key)) {
+        applyGlowColor();
+    }
+    if (key === 'rotationSpeed') {
+        currentDuration = value;
+    }
+}
 
 function updateIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
@@ -25,24 +61,20 @@ function updateIcons(isLight) {
     }
 }
 
-function applyGlowColor() {
-    const isLight = document.documentElement.classList.contains('light');
-    const savedGlowDark = localStorage.getItem('glowDark') || '#8b0000';
-    const savedGlowLight = localStorage.getItem('glowLight') || '#8b0000';
-    const noShadow = localStorage.getItem('noShadow') === 'true';
-    let color = isLight ? savedGlowLight : savedGlowDark;
-    if (noShadow) color = 'transparent';
-    document.documentElement.style.setProperty('--glow-color', color);
-}
-
 function applySettings() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light') {
+    if (settings.theme === 'light') {
         document.documentElement.classList.add('light');
     } else {
         document.documentElement.classList.remove('light');
     }
     applyGlowColor();
+}
+
+function applyGlowColor() {
+    const isLight = document.documentElement.classList.contains('light');
+    let color = isLight ? settings.glowLight : settings.glowDark;
+    if (settings.noShadow) color = 'transparent';
+    document.documentElement.style.setProperty('--glow-color', color);
 }
 
 function showImage(imageUrl, title = "") {
@@ -102,31 +134,17 @@ function updateSpeed(duration) {
 }
 
 function applyRotationPreference() {
-    const disableAutoRotation =
-        localStorage.getItem('noRotation') === 'true';
-    if (disableAutoRotation) return;
+    if (settings.noRotation) return;
     setTimeout(() => {
         const spinner = document.getElementById('spinner');
-        if (!spinner) return;
-        if (!isSpinning) {
-            spinnerClickHandler();
-        }
+        if (!spinner || isSpinning) return;
+        spinnerClickHandler();
     }, 3000);
 }
 
 function initializeDefaults() {
-    if (localStorage.getItem('noRotation') === null) {
-        localStorage.setItem('noRotation', 'true');
-    }
-    if (localStorage.getItem('noShadow') === null) {
-        localStorage.setItem('noShadow', 'true');
-    }
-    if (localStorage.getItem('rotationSpeed') === null) {
-        localStorage.setItem('rotationSpeed', '40');
-    }
-    if (localStorage.getItem('theme') === null) {
-        localStorage.setItem('theme', 'dark');
-    }
+    loadSettings();
+    currentDuration = settings.rotationSpeed;
 }
 
 function initMainPage() {
@@ -152,74 +170,70 @@ function initMainPage() {
         appVersionElement.textContent = appVersion;
         appLastUpdatedElement.textContent = lastUpdated;
     }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }    
 }
 
 function initSettingsPage() {
     initializeDefaults();
     displayArea = null;
     applySettings();
+
     const themeControls = document.getElementById('themeControls');
     if (themeControls) {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        updateIcons(savedTheme === 'light');
+        updateIcons(settings.theme === 'light');
         themeControls.addEventListener('click', () => {
-            const nowLight = !document.documentElement.classList.contains('light');
-            document.documentElement.classList.toggle('light');
-            localStorage.setItem(
-                'theme',
-                nowLight ? 'light' : 'dark'
-            );
+            const nowLight = settings.theme === 'dark';
+            updateSetting('theme', nowLight ? 'light' : 'dark');
             updateIcons(nowLight);
-            applyGlowColor();
         });
     }    
+
     const closeBtn = document.getElementById('closeSettings');
     if (closeBtn) closeBtn.addEventListener('click', () => window.location.href = 'index.html');
+
+    // Speed slider
     const speedSlider = document.getElementById('speedSliderSettings');
     const speedValueEl = document.getElementById('speedValueSettings');
     if (speedSlider) {
-        speedSlider.value = currentDuration;
-        if (speedValueEl) speedValueEl.textContent = currentDuration;
+        speedSlider.value = settings.rotationSpeed;
+        if (speedValueEl) speedValueEl.textContent = settings.rotationSpeed;
         speedSlider.addEventListener('input', (e) => {
-            updateSpeed(parseInt(e.target.value));
-            localStorage.setItem('rotationSpeed', e.target.value);
+            const val = parseInt(e.target.value);
+            updateSetting('rotationSpeed', val);
+            updateSpeed(val);
         });
     }
+
+    // Glow colors
     const glowDark = document.getElementById('glowDark');
     const glowLight = document.getElementById('glowLight');
     if (glowDark) {
-        glowDark.value = localStorage.getItem('glowDark') || '#8b0000';
+        glowDark.value = settings.glowDark;
         glowDark.addEventListener('input', (e) => {
-            localStorage.setItem('glowDark', e.target.value);
-            applyGlowColor();
+            updateSetting('glowDark', e.target.value);
         });
     }
     if (glowLight) {
-        glowLight.value = localStorage.getItem('glowLight') || '#8b0000';
+        glowLight.value = settings.glowLight;
         glowLight.addEventListener('input', (e) => {
-            localStorage.setItem('glowLight', e.target.value);
-            applyGlowColor();
+            updateSetting('glowLight', e.target.value);
         });
     }
+
+    // Checkboxes
     const noRotation = document.getElementById('noRotation');
     const noShadow = document.getElementById('noShadow');
     if (noRotation) {
-        const rotationSetting = localStorage.getItem('noRotation');
-        noRotation.checked =
-            rotationSetting === null
-                ? true
-                : rotationSetting === 'true';
-        noRotation.addEventListener('change', (e) => localStorage.setItem('noRotation', e.target.checked));
+        noRotation.checked = settings.noRotation;
+        noRotation.addEventListener('change', (e) => updateSetting('noRotation', e.target.checked));
     }
     if (noShadow) {
-        const shadowSetting = localStorage.getItem('noShadow');
-        noShadow.checked =
-            shadowSetting === null
-                ? true
-                : shadowSetting === 'true';
-        noShadow.addEventListener('change', (e) => {
-            localStorage.setItem('noShadow', e.target.checked);
-            applyGlowColor();
-        });
+        noShadow.checked = settings.noShadow;
+        noShadow.addEventListener('change', (e) => updateSetting('noShadow', e.target.checked));
+    }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
     }
 }

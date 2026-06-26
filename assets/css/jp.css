@@ -1,13 +1,13 @@
 :root {
     --bg-color: #1a1a1a;
-    --glow-color: rgba(139, 0, 0, 0.45);
+    --glow-color: rgba(139, 0, 0, 0.451);
     --spinner-border-color: white;
-    --footer-text: rgba(255, 255, 255, 0.432);
+    --footer-text: #ffffff6e;
 }
 
 html.light {
     --bg-color: #f0f0f0;
-    --glow-color: rgba(139, 0, 0, 0.25);
+    --glow-color: #000;
     --spinner-border-color: black;
     --footer-text: #333333;
 }

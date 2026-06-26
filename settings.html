@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Jesus Prayer: Settings</title>
-    <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml">
-    <link rel="stylesheet" href="assets/css/jp.css">
+    <meta name="description" content="Lord Jesus Christ Son of God have mercy on me a sinner is an Orthodox Christian prayer.">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="rgba(139, 0, 0, 0.451)" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/jp.css" />
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light');
@@ -72,9 +76,9 @@
 
         <div class="setting-group">
             <label for="speedSliderSettings">Rotation Speed:</label>
-            <input type="range" id="speedSliderSettings" class="speed-slider" min="10" max="80" value="40" step="1">
+            <input type="range" id="speedSliderSettings" class="speed-slider" min="5" max="90" value="30" step="1">
             <div style="font-size: smaller; text-align:center; margin-top:20px;">
-                It will take <span id="speedValueSettings">40</span> seconds to complete 1 rotation
+                It will take <span id="speedValueSettings">30</span> seconds to complete 1 rotation
             </div>
         </div>
     </div>
