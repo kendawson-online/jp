@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jesus-prayer-v1';
+const CACHE_NAME = 'jesus-prayer-v3';
 const urlsToCache = [
   '/',
   '/index.html',

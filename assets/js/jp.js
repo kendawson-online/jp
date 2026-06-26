@@ -2,17 +2,17 @@
 // jp.js - JavaScript for The Jesus Prayer app
 // -------------------------------------------------------
 
-const appVersion = '0.0.3-beta';
-const lastUpdated = 'Jun. 26, 2026';
+const appVersion = '0.0.5-beta';
+const lastUpdated = 'June 26, 2026';
 
 let isSpinning = false;
-let currentDuration = parseInt(localStorage.getItem('rotationSpeed') || '30');
+let currentDuration = 30;
 let displayArea = null;
 
 const DEFAULT_SETTINGS = {
     theme: 'dark',
-    glowDark: 'rgba(139, 0, 0, 0.451)',
-    glowLight: '#000000',
+    glowDark: '#8B000073',
+    glowLight: '#36454F',
     noRotation: true,
     noShadow: true,
     rotationSpeed: 30
@@ -42,25 +42,6 @@ function updateSetting(key, value) {
     }
     if (key === 'rotationSpeed') {
         currentDuration = value;
-    }
-}
-
-// this function will be depecated in future versions 
-function migrateOldSettings() {
-    const oldKeys = ['theme', 'glowDark', 'glowLight', 'noRotation', 'noShadow', 'rotationSpeed'];
-    let hasOldKeys = false;
-    oldKeys.forEach(key => {
-        if (localStorage.getItem(key) !== null) {
-            hasOldKeys = true;
-        }
-    });
-    if (hasOldKeys) {
-        console.log('🧹 Migrating old settings — clearing localStorage');
-        localStorage.clear();
-        // Optional: small delay then reload so user sees the change
-        setTimeout(() => {
-            window.location.reload();
-        }, 300);
     }
 }
 
@@ -105,16 +86,18 @@ function applyGlowColor() {
 }
 
 function showImage(imageUrl, title = "") {
-    if (!displayArea) return;
     isSpinning = false;
-    if (displayArea) {
-        displayArea.innerHTML = `
-            <div class="static-image" title="${title}">
-                <img src="${imageUrl}" alt="${title}">
-            </div>
-        `;
-        scrollToTop();
+    if (!displayArea) {
+        console.warn('displayArea not found - showImage failed');
+        return false;
     }
+    displayArea.innerHTML = `
+        <div class="static-image" title="${title}">
+            <img src="${imageUrl}" alt="${title}">
+        </div>
+    `;
+    scrollToTop();
+    return true;
 }
 
 function scrollToTop() {
@@ -175,7 +158,6 @@ function initializeDefaults() {
 }
 
 function initMainPage() {
-    migrateOldSettings();
     initializeDefaults();
     displayArea = document.getElementById('displayArea');
     applySettings();
@@ -202,7 +184,6 @@ function initMainPage() {
 }
 
 function initSettingsPage() {
-    migrateOldSettings();
     initializeDefaults();
     displayArea = null;
     applySettings();
