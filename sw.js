@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jp-0.0.8';
+const CACHE_NAME = 'jp-0.0.9';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -22,48 +22,44 @@ const urlsToCache = [
   '/assets/img/app-icons/toggle-off.svg',
   '/assets/img/app-icons/toggle-on.svg',
   '/assets/img/app-icons/x-circle.svg',
+  '/assets/img/app-icons/checkmark.svg',
+  '/assets/img/app-icons/download.svg',
   '/assets/img/app-icons/orthodox-cross-192x192.png',
   '/assets/img/app-icons/orthodox-cross-512x512.png',
   '/assets/img/app-icons/orthodox-cross-512x512-filled.png'
 ];
 
 self.addEventListener('install', event => {
-    self.skipWaiting();
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
-});
-
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request);
-            })
-            .catch(() => {
-                // Optional: return an offline page or placeholder image later.
-            })
-    );
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
 });
 
 self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(
-                keys
-                    .filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
-            )
-        ).then(() => self.clients.claim())
-    );
+  event.waitUntil(
+    caches.keys().then(cacheNames =>
+      Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      )
+    ).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });
 
 self.addEventListener('message', event => {
-    if (event.data === 'SKIP_WAITING') {
-        self.skipWaiting();
-    }
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

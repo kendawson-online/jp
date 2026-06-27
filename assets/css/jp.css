@@ -1,13 +1,13 @@
 :root {
     --bg-color: #1a1a1a;
-    --glow-color: rgba(139, 0, 0, 0.451);
+    --glow-color: #8b0000;
     --spinner-border-color: white;
     --footer-text: #ffffff6e;
 }
 
 html.light {
     --bg-color: #f0f0f0;
-    --glow-color: #000;
+    --glow-color: #7d93a1;
     --spinner-border-color: black;
     --footer-text: #333333;
 }
@@ -120,14 +120,14 @@ html.light .theme-controls {
 }
 
 .theme-icon:hover { transform: scale(1.15); }
-.theme-toggle:hover { transform: scale(1.1); }
+.theme-toggle:hover { transform: scale(1.15); }
 
 .gear-icon {
     width: 32px;
     height: 32px;
 }
 .gear-icon:hover {
-    transform: scale(1.25);
+    transform: scale(1.15);
 }
 
 .speed-control {
@@ -149,7 +149,7 @@ html.light .theme-controls {
 }
 
 html.light .speed-slider {
-    accent-color: #b22222;
+    accent-color: #600000;
 }
 
 .speed-value {
@@ -176,9 +176,8 @@ html.light .speed-slider {
 .btn-container button {
     padding: 12px 24px;
     font-size: 1.05rem;
-    background: rgba(139, 0, 0, 0.85);
+    background: #8b0000;
     color: white;
-    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
@@ -186,12 +185,12 @@ html.light .speed-slider {
 }
 
 .btn-container button:hover {
-    background: rgba(139, 0, 0, 1);
+    background: #8b0000;
     transform: translateY(-2px);
 }
 
 html.light .btn-container button {
-    background: rgba(139, 0, 0, 0.75);
+    background: #8b0000;
 }
 
 .static-image img {
@@ -204,8 +203,10 @@ html.light .btn-container button {
 }
 
 .settings-container {
-    max-width: 560px;
-    padding: 50px 40px;
+    width: 50vw;
+    min-width: 350px;
+    max-width: 900px;
+    padding: 20px 30px;
     background: rgba(255, 255, 255, 0.432);
     border-radius: 20px;
     box-shadow: 0 0 40px rgba(0,0,0,0.4);
@@ -233,7 +234,7 @@ html.light .settings-container {
     height: 32px;
 }
 .close-btn:hover {
-    transform: scale(1.25);
+    transform: scale(1.15);
 }
 
 .footer-text {
@@ -292,15 +293,27 @@ html.light .settings-container {
 .setting-description {
     margin-top: .25rem;
     margin-bottom: 1rem;
-    opacity: .8;
-    font-size: .95rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .settings-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 10px;
+    background: #8b0000;
+    color: white;
     width: 100%;
+    padding: 12px 24px;
+    font-size: 1.05rem;
     padding: .75rem;
     border-radius: 8px;
+    max-width: 300px;
     cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid var(--spinner-border-color);
 }
 
 #pwa-installed {

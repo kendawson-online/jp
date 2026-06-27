@@ -16,7 +16,6 @@
  */
 
 const PWA_EVENT = "pwa-state-changed";
-
 const PWA = (() => {
 
     let deferredPrompt = null;
@@ -26,15 +25,11 @@ const PWA = (() => {
     // ----------------------------------------------------
 
     window.addEventListener("beforeinstallprompt", (event) => {
-
         event.preventDefault();
-
         deferredPrompt = event;
-
         document.dispatchEvent(
            new CustomEvent(PWA_EVENT)
         );
-
     });
 
     // ----------------------------------------------------
@@ -42,13 +37,10 @@ const PWA = (() => {
     // ----------------------------------------------------
 
     window.addEventListener("appinstalled", () => {
-
         deferredPrompt = null;
-
         document.dispatchEvent(
             new CustomEvent(PWA_EVENT)
         );
-
     });
 
     // ----------------------------------------------------
@@ -60,9 +52,7 @@ const PWA = (() => {
     }
 
     function isInstalled() {
-
         return window.matchMedia("(display-mode: standalone)").matches;
-
     }
 
     async function install() {
@@ -72,9 +62,7 @@ const PWA = (() => {
         }
 
         deferredPrompt.prompt();
-
         const result = await deferredPrompt.userChoice;
-
         deferredPrompt = null;
 
         document.dispatchEvent(
@@ -82,20 +70,18 @@ const PWA = (() => {
         );
 
         return result.outcome === "accepted";
-
     }
 
     return {
-
         canInstall,
         isInstalled,
         install
-
     };
 
-    console.log("beforeinstallprompt fired");
-    console.log("appinstalled fired");
-    console.log("Standalone:", PWA.isInstalled());
-    console.log("Install available:", PWA.canInstall());
+    // debugging 
+    // console.log("beforeinstallprompt fired");
+    // console.log("appinstalled fired");
+    // console.log("Standalone:", PWA.isInstalled());
+    // console.log("Install available:", PWA.canInstall());
 
 })();

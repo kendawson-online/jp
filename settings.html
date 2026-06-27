@@ -5,41 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Jesus Prayer: Settings</title>
     <meta name="description" content="Lord Jesus Christ Son of God have mercy on me a sinner is an Orthodox Christian prayer.">
-    <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="rgba(139, 0, 0, 0.451)" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#8b0000" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/css/jp.css" />
     <script>
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.add('light');
-        }
         const theme = localStorage.getItem('theme') || 'dark';
+        const isLight = theme === 'light';
+        document.documentElement.classList.toggle('light', isLight);
+        const icon = (name, lightFile, darkFile) => `assets/img/app-icons/${isLight ? lightFile : darkFile}`;
         window.themeIcons = {
-            sun: theme === 'light'
-                ? 'assets/img/app-icons/sun-fill.svg'
-                : 'assets/img/app-icons/sun.svg',
-
-            moon: theme === 'dark'
-                ? 'assets/img/app-icons/moon-fill.svg'
-                : 'assets/img/app-icons/moon.svg',
-
-            toggle: theme === 'light'
-                ? 'assets/img/app-icons/toggle-off.svg'
-                : 'assets/img/app-icons/toggle-on.svg'
+            sun: icon('sun', 'sun-fill.svg', 'sun.svg'),
+            moon: icon('moon', 'moon.svg', 'moon-fill.svg'),
+            toggle: icon('toggle', 'toggle-off.svg', 'toggle-on.svg')
         };
     </script>
 </head>
 <body>
 
-    <div id="closeSettings" class="cornerBtnWrapper" title="Close">
-        <img src="assets/img/app-icons/x-circle.svg" class="close-btn" title="Close" alt="Close"/>
+    <div id="closeSettings" class="cornerBtnWrapper" title="Close" alt="Close">
+        <img src="assets/img/app-icons/x-circle.svg" class="close-btn" />
     </div>
 
     <div class="settings-container">
 
-        <h1 style="margin-bottom: 30px;">App Settings:</h1>
+        <section id="pwa-settings" class="setting-group hidden">
+            <p class="setting-description">
+                Install The Jesus Prayer app for offline use
+            </p>
+            <button id="install-app-btn" class="settings-button">
+                <img src="assets/img/app-icons/download.svg" width="20" /> Install App
+            </button>
+            <p id="pwa-installed" class="hidden">
+                <img src="assets/img/app-icons/checkmark.svg" width="20" /> Installed
+            </p>
+        </section>
 
+        <hr/>
+
+        <h2 style="text-align: center;">Additional Settings:</h2>
+
+        <!-- theme toggle -->
         <div class="themeControls" id="themeControls">
             <label>Theme Style:</label> 
             <img id="sunIcon" title="Light" alt="Light" width="30">
@@ -52,6 +59,9 @@
             </script>
         </div>
 
+        <hr/><br/>
+
+        <!-- glow color -->
         <div class="setting-group">
             <label>Glow Color (Dark Mode)</label>
             <input type="color" id="glowDark" value="#8b0000">
@@ -59,9 +69,12 @@
 
         <div class="setting-group">
             <label>Glow Color (Light Mode)</label>
-            <input type="color" id="glowLight" value="#8b0000">
+            <input type="color" id="glowLight" value="#7d93a1">
         </div>
 
+        <hr/><br/>
+
+        <!-- checkboxes -->
         <div class="setting-group">
             <label>
                 <input type="checkbox" id="noRotation"> Disable Automatic Rotation on Page Load
@@ -73,7 +86,10 @@
                 <input type="checkbox" id="noShadow"> Disable Glow/Shadow
             </label>
         </div>
-
+        
+        <hr/><br/>
+        
+        <!-- range input -->
         <div class="setting-group">
             <label for="speedSliderSettings">Rotation Speed:</label>
             <input type="range" id="speedSliderSettings" class="speed-slider" min="5" max="90" value="30" step="1">
@@ -81,22 +97,8 @@
                 It will take <span id="speedValueSettings">30</span> seconds to complete 1 rotation
             </div>
         </div>
+
     </div>
-
-    <hr/>
-
-    <section id="pwa-settings" class="settings-group hidden">
-        <h2>Application</h2>
-        <p class="setting-description">
-            Install The Jesus Prayer for faster startup and offline use.
-        </p>
-        <button id="install-app-btn" class="settings-button">
-            Install App
-        </button>
-        <p id="pwa-installed" class="hidden">
-            ✓ Installed
-        </p>
-    </section>
 
     <script src="assets/js/pwa.js"></script>
     <script src="assets/js/jp.js"></script>

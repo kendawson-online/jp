@@ -2,8 +2,8 @@
 // jp.js - JavaScript for The Jesus Prayer app
 // -------------------------------------------------------
 
-const appVersion = '0.0.8-beta';
-const lastUpdated = 'June 26, 2026';
+const appVersion = '0.0.9-beta';
+const lastUpdated = 'June 27, 2026';
 
 let isSpinning = false;
 let currentDuration = 30;
@@ -12,7 +12,7 @@ let displayArea = null;
 const DEFAULT_SETTINGS = {
     theme: 'dark',
     glowDark: '#8B0000',
-    glowLight: '#36454F',
+    glowLight: '#7d93a1',
     noRotation: true,
     noShadow: true,
     rotationSpeed: 30
