@@ -19,14 +19,14 @@
 <body>
 
     <div class="cornerBtnWrapper">
-        <img id="gearIcon" src="assets/img/app-icons/gear.svg" class="gear-icon" title="Settings" alt="Settings">
+        <img id="gearIcon" src="assets/img/app-icons/gear.svg" class="gear-icon" title="Settings" alt="Settings" />
     </div>
 
     <div id="displayArea">
         <div class="spinner paused" id="spinner" title="Lord Jesus Christ Son of God have mercy on me a sinner"></div>
     </div>
 
-    <div style="display: none; margin-top: 10px; opacity: 0.4; color: white; font-size: smaller; text-align: center; cursor: pointer;" onclick="this.style.display='none';">
+    <div id="helpMsg" class="help-msg">
         Click the image to start/stop rotation
     </div>
 
@@ -37,6 +37,12 @@
         <button id="btnHail">Hail Mary</button>
         <button id="btnCross">Orthodox Cross</button>
         <button id="btnJesusPrayer">The Jesus Prayer</button>
+    </div>
+
+    <div id="quote" class="quote">
+        &ldquo;<i>Everywhere, wherever you may find yourself, you can set up an altar to God in your mind by means of prayer.</i>&rdquo;
+        <br/><br/>  
+        &ndash; St. John Chrysostom
     </div>
 
     <footer class="footer-text">
@@ -53,7 +59,8 @@
         <span class="ver-sep-dash">&mdash;</span>
         Last updated: <span id="lastUpdated">00/00/0000</span>
     </div>
-
+    
+    <script src="assets/js/pwa.js"></script>
     <script src="assets/js/jp.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -32,8 +32,8 @@
 </head>
 <body>
 
-    <div class="cornerBtnWrapper" id="cornerBtnWrapper">
-        <span class="close-btn" id="closeSettings">×</span>
+    <div id="closeSettings" class="cornerBtnWrapper" title="Close">
+        <img src="assets/img/app-icons/x-circle.svg" class="close-btn" title="Close" alt="Close"/>
     </div>
 
     <div class="settings-container">
@@ -83,6 +83,22 @@
         </div>
     </div>
 
+    <hr/>
+
+    <section id="pwa-settings" class="settings-group hidden">
+        <h2>Application</h2>
+        <p class="setting-description">
+            Install The Jesus Prayer for faster startup and offline use.
+        </p>
+        <button id="install-app-btn" class="settings-button">
+            Install App
+        </button>
+        <p id="pwa-installed" class="hidden">
+            ✓ Installed
+        </p>
+    </section>
+
+    <script src="assets/js/pwa.js"></script>
     <script src="assets/js/jp.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

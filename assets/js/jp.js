@@ -2,7 +2,7 @@
 // jp.js - JavaScript for The Jesus Prayer app
 // -------------------------------------------------------
 
-const appVersion = '0.0.5-beta';
+const appVersion = '0.0.8-beta';
 const lastUpdated = 'June 26, 2026';
 
 let isSpinning = false;
@@ -11,7 +11,7 @@ let displayArea = null;
 
 const DEFAULT_SETTINGS = {
     theme: 'dark',
-    glowDark: '#8B000073',
+    glowDark: '#8B0000',
     glowLight: '#36454F',
     noRotation: true,
     noShadow: true,
@@ -19,6 +19,11 @@ const DEFAULT_SETTINGS = {
 };
 
 let settings = { ...DEFAULT_SETTINGS };
+
+function initializeDefaults() {
+    loadSettings();
+    currentDuration = settings.rotationSpeed;
+}
 
 function loadSettings() {
     const saved = localStorage.getItem('appSettings');
@@ -53,6 +58,8 @@ function registerServiceWorker() {
     }
 }
 
+// ===================== SETTINGS PAGE =====================
+
 function updateIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
@@ -85,6 +92,25 @@ function applyGlowColor() {
     document.documentElement.style.setProperty('--glow-color', color);
 }
 
+function updateSpeed(duration) {
+    currentDuration = duration;
+    ['speedValue', 'speedValueSettings'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = duration;
+    });
+}
+
+function applyRotationPreference() {
+    if (settings.noRotation) return;
+    setTimeout(() => {
+        const spinner = document.getElementById('spinner');
+        if (!spinner || isSpinning) return;
+        spinnerClickHandler();
+    }, 3000);
+}
+
+// ===================== INDEX PAGE ===================== 
+
 function showImage(imageUrl, title = "") {
     isSpinning = false;
     if (!displayArea) {
@@ -110,10 +136,7 @@ function scrollToTop() {
 
 function resetToSpinner() {
     if (displayArea) {
-        displayArea.innerHTML = `
-            <div class="spinner paused" id="spinner"
-                 title="Lord Jesus Christ Son of God have mercy on me a sinner"></div>
-        `;
+        displayArea.innerHTML = `<div class="spinner paused" id="spinner" title="Lord Jesus Christ Son of God have mercy on me a sinner"></div>`;
         const newSpinner = document.getElementById('spinner');
         if (newSpinner) {
             newSpinner.addEventListener('click', spinnerClickHandler);
@@ -135,32 +158,60 @@ function spinnerClickHandler() {
     }
 }
 
-function updateSpeed(duration) {
-    currentDuration = duration;
-    ['speedValue', 'speedValueSettings'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = duration;
-    });
+// show help text on first run
+function showHelpMsg() {
+    const helpMsg = document.getElementById('helpMsg');
+    if (helpMsg) {
+        // try to get local storage flag
+        let firstRunFlag = localStorage.getItem('firstRunFlag');
+        if (firstRunFlag) {
+            // if it exists, hide the help text
+            helpMsg.style.display = 'none';
+        } else {
+            // show this console text on first run
+            console.log(`☦️ Jesus Prayer version ${appVersion}`);
+            console.log(`Last updated: ${lastUpdated}`);
+            // then set a flag in local storage
+            localStorage.setItem('firstRunFlag', true);
+        }
+    }
 }
 
-function applyRotationPreference() {
-    if (settings.noRotation) return;
-    setTimeout(() => {
-        const spinner = document.getElementById('spinner');
-        if (!spinner || isSpinning) return;
-        spinnerClickHandler();
-    }, 3000);
+function updatePWAInstallUI() {
+
+    const section = document.getElementById("pwa-settings");
+    const installButton = document.getElementById("install-app-btn");
+    const installed = document.getElementById("pwa-installed");
+
+    if (!section) {
+        return;
+    }
+
+    if (PWA.isInstalled()) {
+        section.classList.remove("hidden");
+        installButton.classList.add("hidden");
+        installed.classList.remove("hidden");
+        return;
+    }
+
+    if (PWA.canInstall()) {
+        section.classList.remove("hidden");
+        installButton.classList.remove("hidden");
+        installed.classList.add("hidden");
+        return;
+    }
+
+    section.classList.add("hidden");
 }
 
-function initializeDefaults() {
-    loadSettings();
-    currentDuration = settings.rotationSpeed;
-}
+// initialization functions
 
 function initMainPage() {
+
     initializeDefaults();
     displayArea = document.getElementById('displayArea');
     applySettings();
+    
     const gearIcon = document.getElementById('gearIcon');
     if (gearIcon) gearIcon.addEventListener('click', () => window.location.href = 'settings.html');
     document.getElementById('btnJesus')?.addEventListener('click', () => showImage('assets/img/jesus.jpg', 'Christ Pantocrator'));
@@ -169,21 +220,26 @@ function initMainPage() {
     document.getElementById('btnHail')?.addEventListener('click', () => showImage('assets/img/hail-mary.jpg', 'Hail Mary'));
     document.getElementById('btnCross')?.addEventListener('click', () => showImage('assets/img/cross.png', 'Orthodox Cross'));
     document.getElementById('btnJesusPrayer')?.addEventListener('click', resetToSpinner);
+    
     const spinner = document.getElementById('spinner');
     if (spinner) {
         spinner.addEventListener('click', spinnerClickHandler);
         applyRotationPreference();
     }
+    
     let appVersionElement = document.getElementById('appVersion');
     let appLastUpdatedElement = document.getElementById('lastUpdated');
     if (appVersionElement && appLastUpdatedElement) {
         appVersionElement.textContent = appVersion;
         appLastUpdatedElement.textContent = lastUpdated;
     }
+    
+    showHelpMsg();
     registerServiceWorker();
 }
 
 function initSettingsPage() {
+
     initializeDefaults();
     displayArea = null;
     applySettings();
@@ -241,5 +297,20 @@ function initSettingsPage() {
         noShadow.checked = settings.noShadow;
         noShadow.addEventListener('change', (e) => updateSetting('noShadow', e.target.checked));
     }
+
     registerServiceWorker();
+
+    updatePWAInstallUI();
+
+    document.addEventListener(
+        PWA_EVENT,
+        updatePWAInstallUI
+    );
+
+    document
+    .getElementById("install-app-btn")
+    ?.addEventListener("click", async () => {
+        await PWA.install();
+    });
+
 }

@@ -1,11 +1,23 @@
 {
+  "id": "jesus-prayer-pwa",
   "name": "The Jesus Prayer",
+  "lang": "en-US",
   "short_name": "Jesus Prayer",
   "description": "Orthodox Christian Jesus Prayer app",
   "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
   "background_color": "#1a1a1a",
   "theme_color": "#8b0000",
+  "categories": [
+    "lifestyle",
+    "education"
+  ],
   "icons": [
     {
       "src": "assets/img/app-icons/orthodox-cross-192x192.png",
@@ -15,7 +27,14 @@
     {
       "src": "assets/img/app-icons/orthodox-cross-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/app-icons/orthodox-cross-512x512-filled.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

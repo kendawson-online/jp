@@ -1,0 +1,29 @@
+{
+    "quote":
+    [
+        {
+            "id": 1,
+            "text": "O Lord, send down Your grace to help me, that I may glorify Your name. Grant me humility, love, and obedience. Implant in me the root of all blessings: the reverence of You in my heart.",
+            "author": "St. John Chrysostom",
+            "type": "prayer",
+            "tags": [],
+            "suitableFor": []
+        },
+        {
+            "id": 2,
+            "text": "Everywhere, wherever you may find yourself, you can set up an altar to God in your mind by means of prayer.",
+            "author": "St. John Chrysostom",
+            "type": "quote",
+            "tags": [],
+            "suitableFor": []
+        },
+        {
+            "id": 3,
+            "text": "Pray without ceasing.",
+            "author": "1 Thessalonians 5:17",
+            "type": "scripture",
+            "tags": [],
+            "suitableFor": []
+        }
+    ]
+}

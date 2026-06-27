@@ -54,11 +54,29 @@ body {
     100% { transform: rotate(-360deg); }
 }
 
+.help-msg {
+    display: block; 
+    margin-top: 30px; 
+    opacity: 0.6; 
+    color: var(--footer-text); 
+    font-size: smaller; 
+    text-align: center;
+}
+
+.quote {
+    margin-top: 20px;
+    font-family: serif;
+    color: var(--footer-text);
+    text-align: center;
+    padding: 0 10px;
+}
+
 #displayArea {
     min-height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 40px;
 }
 
 .cornerBtnWrapper {
@@ -147,7 +165,7 @@ html.light .speed-slider {
 }
 
 .btn-container {
-    margin: 30px 0;
+    margin: 50px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -211,18 +229,11 @@ html.light .settings-container {
 }
 
 .close-btn {
-    padding: 0;
-    margin: 0;
-    font-size: 60px;
-    cursor: pointer;
-    color: inherit;
-    opacity: 0.6;
-    transition: all 0.2s;
+    width: 32px;
+    height: 32px;
 }
-
 .close-btn:hover {
-    opacity: 1;
-    transform: scale(1.15);
+    transform: scale(1.25);
 }
 
 .footer-text {
@@ -272,6 +283,31 @@ html.light .settings-container {
     display: none;
 }
 
+/* PWA button on Settings page */
+
+.hidden {
+    display: none;
+}
+
+.setting-description {
+    margin-top: .25rem;
+    margin-bottom: 1rem;
+    opacity: .8;
+    font-size: .95rem;
+}
+
+.settings-button {
+    width: 100%;
+    padding: .75rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#pwa-installed {
+    margin-top: .75rem;
+    font-weight: bold;
+}
+
 /* Large screen */
 @media (min-width: 768px) {
     .footer-text {
@@ -298,5 +334,8 @@ html.light .settings-container {
     .ver-sep-dash {
         display: block;
         margin: 0 10px;
+    }
+    .btn-container {
+        margin: 80px 0;
     }
 }

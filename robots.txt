@@ -1,38 +1,4 @@
-User-agent: GPTBot
-Disallow: /
+User-agent: *
+Disallow: /knots/
 
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: OAI-SearchBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-User-agent: PerplexityBot
-Disallow: /
-
-User-agent: Diffbot
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
-
-User-agent: Applebot-Extended
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
+Sitemap: https://jesusprayer.net/sitemap.xml
