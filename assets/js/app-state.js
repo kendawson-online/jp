@@ -1,7 +1,7 @@
 // app-state.js
 // Settings defaults and persistence
 
-export const appVersion = '0.1.0-beta';
+export const appVersion = '0.1.1-beta';
 export const lastUpdated = 'June 27, 2026';
 
 export const DEFAULT_SETTINGS = {

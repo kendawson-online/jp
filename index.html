@@ -76,6 +76,13 @@
         <span class="ver-sep-dash">&mdash;</span>
         Last updated: <span id="lastUpdated">00/00/0000</span>
     </div>
+
+    <script>
+        console.log("Inline script loaded");
+        window.addEventListener("beforeinstallprompt", (e) => {
+            console.log("***** INLINE beforeinstallprompt FIRED *****");
+        });
+    </script>
     
     <script type="module" src="assets/js/main.js"></script>
 

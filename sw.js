@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jp-0.1.0-debug-2';
+const CACHE_NAME = '0.1.1-beta';
 const urlsToCache = [
   '/',
   '/index.html',

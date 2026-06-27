@@ -61,6 +61,13 @@ function applyRotationPreference() {
 }
 
 function updatePWAInstallUI() {
+
+    console.log("updatePWAInstallUI()");
+    console.log({
+        installed: PWA.isInstalled(),
+        canInstall: PWA.canInstall()
+    });
+
     if (!section) return;
 
     if (PWA.isInstalled()) {
@@ -76,11 +83,6 @@ function updatePWAInstallUI() {
         installed?.classList.add('hidden');
         return;
     }
-
-    console.log({
-        installed: PWA.isInstalled(),
-        canInstall: PWA.canInstall()
-    });
 
     section.classList.add('hidden');
 }

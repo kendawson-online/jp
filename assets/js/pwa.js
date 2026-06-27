@@ -33,6 +33,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
         canInstall()
     );
     document.dispatchEvent(new CustomEvent(PWA_EVENT));
+    console.log("Dispatched", PWA_EVENT);
 });
 
 window.addEventListener('appinstalled', () => {
@@ -66,27 +67,31 @@ async function install() {
 }
 
 export function registerServiceWorker() {
-    if ('serviceWorker' in navigator === false) {
+    if (!('serviceWorker' in navigator)) {
         return Promise.resolve(null);
     }
 
     if (swRegistrationPromise) {
         return swRegistrationPromise;
     }
+
     swRegistrationPromise =
         navigator.serviceWorker.register('/sw.js')
             .then(registration => {
                 console.log('✅ SW registered');
+
+                navigator.serviceWorker.ready.then(() => {
+                    console.log('✅ SW ready');
+                });
+
                 return registration;
             })
             .catch(error => {
                 console.error('❌ SW registration failed', error);
-
-                // Allow retry if registration failed
                 swRegistrationPromise = null;
-
                 throw error;
             });
+
     return swRegistrationPromise;
 }
 
