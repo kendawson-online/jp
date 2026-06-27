@@ -1,12 +1,19 @@
-const CACHE_NAME = 'jp-0.0.9';
+const CACHE_NAME = 'jp-0.1.0-debug-2';
 const urlsToCache = [
   '/',
   '/index.html',
   '/settings.html',
   '/manifest.json',
-  '/assets/css/jp.css',
-  '/assets/js/jp.js',
+  '/assets/css/base.css',
+  '/assets/css/main.css',
+  '/assets/css/settings.css',
+  '/assets/js/app-state.js',
+  '/assets/js/utils.js',
   '/assets/js/pwa.js',
+  '/assets/js/ui-main.js',
+  '/assets/js/ui-settings.js',
+  '/assets/js/main.js',
+  '/assets/js/settings.js',
   '/assets/img/cross.png',
   '/assets/img/hail-mary.jpg',
   '/assets/img/jesus.jpg',

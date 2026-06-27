@@ -1,0 +1,130 @@
+:root {
+    --bg-color: #1a1a1a;
+    --glow-color: #8b0000;
+    --spinner-border-color: white;
+    --footer-text: #ffffff6e;
+}
+
+html.light {
+    --bg-color: #f0f0f0;
+    --glow-color: #7d93a1;
+    --spinner-border-color: black;
+    --footer-text: #333333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    transition: background-color 0.4s ease;
+    font-size: 16px;
+    font-family: system-ui, sans-serif;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid var(--spinner-border-color);
+    border-radius: 8px;
+    background: #8b0000;
+    color: white;
+}
+
+.icon-button {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cornerBtnWrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+}
+
+.corner-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.corner-icon:hover {
+    transform: scale(1.15);
+}
+
+.hidden {
+    display: none;
+}
+
+.setting-group {
+    margin-bottom: 32px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.speed-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+}
+
+.speed-control label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.speed-slider {
+    width: 320px;
+    accent-color: #8b0000;
+}
+
+html.light .speed-slider {
+    accent-color: #600000;
+}
+
+.speed-value {
+    font-family: monospace;
+    font-size: 1.1rem;
+    min-width: 3ch;
+}
+
+.tinytext {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    text-align: center;
+}

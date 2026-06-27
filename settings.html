@@ -9,7 +9,8 @@
     <meta name="theme-color" content="#8b0000" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/css/jp.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/settings.css" />
     <script>
         const theme = localStorage.getItem('theme') || 'dark';
         const isLight = theme === 'light';
@@ -24,27 +25,15 @@
 </head>
 <body>
 
-    <div id="closeSettings" class="cornerBtnWrapper" title="Close" alt="Close">
-        <img src="assets/img/app-icons/x-circle.svg" class="close-btn" />
+    <div class="cornerBtnWrapper">
+        <button id="closeSettings" class="icon-button" type="button" aria-label="Close settings">
+            <img src="assets/img/app-icons/x-circle.svg" class="corner-icon close-btn" alt="" />
+        </button>
     </div>
 
     <div class="settings-container">
 
-        <section id="pwa-settings" class="setting-group hidden">
-            <p class="setting-description">
-                Install The Jesus Prayer app for offline use
-            </p>
-            <button id="install-app-btn" class="settings-button">
-                <img src="assets/img/app-icons/download.svg" width="20" /> Install App
-            </button>
-            <p id="pwa-installed" class="hidden">
-                <img src="assets/img/app-icons/checkmark.svg" width="20" /> Installed
-            </p>
-        </section>
-
-        <hr/>
-
-        <h2 style="text-align: center;">Additional Settings:</h2>
+        <h2 style="text-align: center;">App Settings:</h2>
 
         <!-- theme toggle -->
         <div class="themeControls" id="themeControls">
@@ -100,13 +89,7 @@
 
     </div>
 
-    <script src="assets/js/pwa.js"></script>
-    <script src="assets/js/jp.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            initSettingsPage();
-        });
-    </script>
+    <script type="module" src="assets/js/settings.js"></script>
 
 </body>
 </html>

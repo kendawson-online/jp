@@ -3,7 +3,7 @@
   "name": "The Jesus Prayer",
   "lang": "en-US",
   "short_name": "Jesus Prayer",
-  "description": "Orthodox Christian Jesus Prayer app",
+  "description": "An Orthodox Christian app for prayer",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
@@ -14,10 +14,6 @@
   "orientation": "portrait",
   "background_color": "#1a1a1a",
   "theme_color": "#8b0000",
-  "categories": [
-    "lifestyle",
-    "education"
-  ],
   "icons": [
     {
       "src": "assets/img/app-icons/orthodox-cross-192x192.png",

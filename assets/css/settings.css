@@ -1,0 +1,66 @@
+.settings-container {
+    width: 50vw;
+    min-width: 350px;
+    max-width: 900px;
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.432);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    margin: 40px auto;
+    color: inherit;
+}
+
+html.light .settings-container {
+    background: #ffffff;
+    box-shadow: 0 0 40px rgba(0,0,0,0.15);
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.15);
+}
+
+.themeControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    margin-bottom: 30px;
+}
+
+html.light .themeControls {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.themeControls label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.theme-icon,
+.theme-toggle {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-icon:hover,
+.theme-toggle:hover {
+    transform: scale(1.15);
+}
+
+@media (min-width: 768px) {
+    .settings-container {
+        width: 50vw;
+    }
+}

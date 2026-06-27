@@ -9,7 +9,8 @@
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#8b0000" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="assets/img/app-icons/orthodox-cross.svg" sizes="any" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/css/jp.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light');
@@ -19,8 +20,12 @@
 <body>
 
     <div class="cornerBtnWrapper">
-        <img id="gearIcon" src="assets/img/app-icons/gear.svg" class="gear-icon" title="Settings" alt="Settings" />
+        <button id="gearButton" class="icon-button" type="button" aria-label="Open settings">
+            <img id="gearIcon" src="assets/img/app-icons/gear.svg" class="corner-icon gear-icon" alt="" />
+        </button>
     </div>
+
+   
 
     <div id="displayArea">
         <div class="spinner paused" id="spinner" title="Lord Jesus Christ Son of God have mercy on me a sinner"></div>
@@ -53,6 +58,18 @@
         <a href="https://www.33knots.com/" target="_blank" class="footer-link">Get a Prayer Rope</a>
     </footer>
 
+    <section id="pwa-install" class="install-section hidden">
+        <p class="install-description">
+                Install The Jesus Prayer app for offline use
+        </p>
+        <button id="install-app-btn" class="install-button">
+            <img src="assets/img/app-icons/download.svg" width="20" /> Install App
+        </button>
+        <p id="pwa-installed" class="hidden">
+            <img src="assets/img/app-icons/checkmark.svg" width="20" /> Installed
+        </p>
+    </section>
+
     <div class="version-text">
         Version: <span id="appVersion">0.0.0</span>
         <span class="ver-sep-empty">&nbsp;</span>
@@ -60,13 +77,7 @@
         Last updated: <span id="lastUpdated">00/00/0000</span>
     </div>
     
-    <script src="assets/js/pwa.js"></script>
-    <script src="assets/js/jp.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            initMainPage();
-        });
-    </script>
+    <script type="module" src="assets/js/main.js"></script>
 
 </body>
 </html>

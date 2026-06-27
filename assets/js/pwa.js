@@ -7,6 +7,7 @@
  *   PWA.canInstall()
  *   PWA.isInstalled()
  *   PWA.install()
+ *   registerServiceWorker()
  *
  * It also dispatches:
  *
@@ -15,73 +16,84 @@
  *   );
  */
 
-const PWA_EVENT = "pwa-state-changed";
-const PWA = (() => {
+const PWA_EVENT = 'pwa-state-changed';
 
-    let deferredPrompt = null;
+let deferredPrompt = null;
+let swRegistrationPromise = null;
 
-    // ----------------------------------------------------
-    // Detect install prompt availability
-    // ----------------------------------------------------
+window.addEventListener('beforeinstallprompt', (event) => {
+    console.log("beforeinstallprompt fired");
+    event.preventDefault();
+    deferredPrompt = event;
+    console.log("deferredPrompt =", deferredPrompt);
+    console.log(
+        "Installed:",
+        isInstalled(),
+        "Can install:",
+        canInstall()
+    );
+    document.dispatchEvent(new CustomEvent(PWA_EVENT));
+});
 
-    window.addEventListener("beforeinstallprompt", (event) => {
-        event.preventDefault();
-        deferredPrompt = event;
-        document.dispatchEvent(
-           new CustomEvent(PWA_EVENT)
-        );
-    });
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    console.log(
+        "Installed:",
+        isInstalled(),
+        "Can install:",
+        canInstall()
+    );
+    document.dispatchEvent(new CustomEvent(PWA_EVENT));
+});
 
-    // ----------------------------------------------------
-    // Detect successful installation
-    // ----------------------------------------------------
+function canInstall() {
+    return deferredPrompt !== null;
+}
 
-    window.addEventListener("appinstalled", () => {
-        deferredPrompt = null;
-        document.dispatchEvent(
-            new CustomEvent(PWA_EVENT)
-        );
-    });
+function isInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches;
+}
 
-    // ----------------------------------------------------
-    // Public API
-    // ----------------------------------------------------
+async function install() {
+    if (!deferredPrompt) {
+        return false;
+    }
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    document.dispatchEvent(new CustomEvent(PWA_EVENT));
+    return result.outcome === "accepted";
+}
 
-    function canInstall() {
-        return deferredPrompt !== null;
+export function registerServiceWorker() {
+    if ('serviceWorker' in navigator === false) {
+        return Promise.resolve(null);
     }
 
-    function isInstalled() {
-        return window.matchMedia("(display-mode: standalone)").matches;
+    if (swRegistrationPromise) {
+        return swRegistrationPromise;
     }
+    swRegistrationPromise =
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('✅ SW registered');
+                return registration;
+            })
+            .catch(error => {
+                console.error('❌ SW registration failed', error);
 
-    async function install() {
+                // Allow retry if registration failed
+                swRegistrationPromise = null;
 
-        if (!deferredPrompt) {
-            return false;
-        }
+                throw error;
+            });
+    return swRegistrationPromise;
+}
 
-        deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
-        deferredPrompt = null;
+export const PWA = {
+    canInstall,
+    isInstalled,
+    install
+};
 
-        document.dispatchEvent(
-            new CustomEvent(PWA_EVENT)
-        );
-
-        return result.outcome === "accepted";
-    }
-
-    return {
-        canInstall,
-        isInstalled,
-        install
-    };
-
-    // debugging 
-    // console.log("beforeinstallprompt fired");
-    // console.log("appinstalled fired");
-    // console.log("Standalone:", PWA.isInstalled());
-    // console.log("Install available:", PWA.canInstall());
-
-})();
+export { PWA_EVENT };
