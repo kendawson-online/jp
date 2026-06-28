@@ -138,10 +138,16 @@
     border: 2px solid var(--spinner-border-color);
 }
 
+.install-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
 .install-description {
     margin-top: .25rem;
     margin-bottom: 1rem;
     font-weight: bold;
+    color: var(--footer-text);
     text-align: center;
 }
 

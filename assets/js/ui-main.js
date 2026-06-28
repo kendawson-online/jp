@@ -10,7 +10,7 @@ let displayArea = null;
 
 let section = null;
 let installButton = null;
-let installed = null;
+
 
 function showImage(imageUrl, title = "") {
     isSpinning = false;
@@ -34,6 +34,7 @@ function resetToSpinner() {
         if (newSpinner) {
             newSpinner.addEventListener('click', spinnerClickHandler);
             applyRotationPreference();
+            scrollToTop();
         }
     }
 }
@@ -62,29 +63,36 @@ function applyRotationPreference() {
 
 function updatePWAInstallUI() {
 
-    console.log("updatePWAInstallUI()");
-    console.log({
-        installed: PWA.isInstalled(),
-        canInstall: PWA.canInstall()
-    });
-
-    if (!section) return;
+    const icon = document.getElementById("install-icon");
+    const label = document.getElementById("install-label");
 
     if (PWA.isInstalled()) {
-        section.classList.remove('hidden');
-        installButton?.classList.add('hidden');
-        installed?.classList.remove('hidden');
+
+        section.classList.remove("hidden");
+
+        installButton.disabled = true;
+        installButton.title = "You already have this app installed.";
+
+        icon.src = "assets/img/app-icons/checkmark.svg";
+        label.textContent = "Installed";
+
         return;
     }
 
     if (PWA.canInstall()) {
-        section.classList.remove('hidden');
-        installButton?.classList.remove('hidden');
-        installed?.classList.add('hidden');
+
+        section.classList.remove("hidden");
+
+        installButton.disabled = false;
+        installButton.title = "";
+
+        icon.src = "assets/img/app-icons/download.svg";
+        label.textContent = "Install App";
+
         return;
     }
 
-    section.classList.add('hidden');
+    section.classList.add("hidden");
 }
 
 function initMainPage() {
@@ -122,7 +130,6 @@ function initMainPage() {
     
     section = document.getElementById('pwa-install');
     installButton = document.getElementById('install-app-btn');
-    installed = document.getElementById('pwa-installed');
 
     updatePWAInstallUI();
     document.addEventListener(PWA_EVENT, updatePWAInstallUI);

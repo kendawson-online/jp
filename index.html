@@ -60,14 +60,14 @@
 
     <section id="pwa-install" class="install-section hidden">
         <p class="install-description">
-                Install The Jesus Prayer app for offline use
+            Install The Jesus Prayer app for offline use
         </p>
         <button id="install-app-btn" class="install-button">
-            <img src="assets/img/app-icons/download.svg" width="20" /> Install App
+            <img id="install-icon"
+                 src="assets/img/app-icons/download.svg"
+                 width="20" />
+            <span id="install-label">Install App</span>
         </button>
-        <p id="pwa-installed" class="hidden">
-            <img src="assets/img/app-icons/checkmark.svg" width="20" /> Installed
-        </p>
     </section>
 
     <div class="version-text">
@@ -77,13 +77,6 @@
         Last updated: <span id="lastUpdated">00/00/0000</span>
     </div>
 
-    <script>
-        console.log("Inline script loaded");
-        window.addEventListener("beforeinstallprompt", (e) => {
-            console.log("***** INLINE beforeinstallprompt FIRED *****");
-        });
-    </script>
-    
     <script type="module" src="assets/js/main.js"></script>
 
 </body>
