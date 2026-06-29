@@ -1,8 +1,8 @@
 // app-state.js
 // Settings defaults and persistence
 
-export const appVersion = '0.1.2-beta';
-export const lastUpdated = 'June 27, 2026';
+export const appVersion = '0.1.8-beta';
+export const lastUpdated = 'June 29, 2026';
 
 export const DEFAULT_SETTINGS = {
     theme: 'dark',

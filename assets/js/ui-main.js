@@ -10,7 +10,8 @@ let displayArea = null;
 
 let section = null;
 let installButton = null;
-
+let installIcon = null;
+let installLabel = null;
 
 function showImage(imageUrl, title = "") {
     isSpinning = false;
@@ -62,37 +63,27 @@ function applyRotationPreference() {
 }
 
 function updatePWAInstallUI() {
-
-    const icon = document.getElementById("install-icon");
-    const label = document.getElementById("install-label");
-
+    if (!section || !installButton || !installIcon || !installLabel) {
+        return;
+    }
     if (PWA.isInstalled()) {
-
         section.classList.remove("hidden");
-
         installButton.disabled = true;
         installButton.title = "You already have this app installed.";
-
-        icon.src = "assets/img/app-icons/checkmark.svg";
-        label.textContent = "Installed";
-
-        return;
+        installIcon.src = "assets/img/app-icons/checkmark.svg";
+        installLabel.textContent = "Installed";
     }
-
-    if (PWA.canInstall()) {
-
+    else if (PWA.canInstall()) {
         section.classList.remove("hidden");
-
         installButton.disabled = false;
-        installButton.title = "";
-
-        icon.src = "assets/img/app-icons/download.svg";
-        label.textContent = "Install App";
-
-        return;
+        installButton.title = "Install this app for offline use.";
+        installIcon.src = "assets/img/app-icons/download.svg";
+        installLabel.textContent = "Install App";
     }
-
-    section.classList.add("hidden");
+    else {
+        section.classList.add("hidden");
+        installButton.disabled = true;
+    }
 }
 
 function initMainPage() {
@@ -103,7 +94,12 @@ function initMainPage() {
     applySettings();
 
     const gearButton = document.getElementById('gearButton');
-    if (gearButton) gearButton.addEventListener('click', () => window.location.href = 'settings.html');
+    if (gearButton) {
+        gearButton.addEventListener(
+            'click',
+            () => window.location.href = 'settings.html'
+        );
+    }
 
     document.getElementById('btnJesus')?.addEventListener('click', () => showImage('assets/img/jesus.jpg', 'Christ Pantocrator'));
     document.getElementById('btnMary')?.addEventListener('click', () => showImage('assets/img/mary.jpg', 'Theotokos'));
@@ -125,17 +121,21 @@ function initMainPage() {
         appLastUpdatedElement.textContent = lastUpdated;
     }
 
-    registerServiceWorker();
+    registerServiceWorker()
+        .catch(console.error);
+
     showHelpMsg();
     
-    section = document.getElementById('pwa-install');
-    installButton = document.getElementById('install-app-btn');
+    section = document.getElementById("pwa-install");
+    installButton = document.getElementById("install-app-btn");
+    installIcon = document.getElementById("install-icon");
+    installLabel = document.getElementById("install-label");
 
     updatePWAInstallUI();
     document.addEventListener(PWA_EVENT, updatePWAInstallUI);
 
-    installButton?.addEventListener('click', async () => {
-        await PWA.install();
+    installButton?.addEventListener('click', () => {
+       void PWA.install();
     });
 }
 
